@@ -741,14 +741,13 @@ export default function App() {
                     <span>Telemetry</span>
                   </button>
 
-                  {/* Mobile Return to Chat Button (Perfect Size & Style Match in Mobile View Only) */}
+                  {/* Mobile Return to Chat Button (Visible in Mobile View Only) */}
                   <button
                     type="button"
                     onClick={() => setMobileSidebarOpen(false)}
                     className="bui-mobile-sidebar-toggle"
                     style={{
                       flex: 1,
-                      display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '6px',

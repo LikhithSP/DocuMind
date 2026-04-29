@@ -493,9 +493,9 @@
   }
 }
 
-/* Mobile Sidebar Toggle Button */
+/* Mobile Sidebar Toggle Button (Hidden on desktop, visible on mobile) */
 .bui-mobile-sidebar-toggle {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 1023px) {
