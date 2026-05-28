@@ -1,0 +1,520 @@
+/* ===================================================================
+   DocuMind — Minimalist Professional SaaS UI Design System
+   Engineered under design-taste-frontend-v1:
+   - THE LILA BAN enforced: Zero purple glows, zero neon AI gradients
+   - Neutral Charcoal/Zinc-950 foundation with crisp 1px hairline borders
+   - Inner refraction borders and diffusion shadows
+   - Controlled contrast, single desaturated electric cyan accent
+   - Tactile button physics with -translate-y-[1px] and scale-[0.98]
+   =================================================================== */
+
+:root {
+  /* Minimalist Claude Warm Grey / Charcoal Foundation */
+  --bui-canvas: #18181b;
+  --bui-surface: rgba(38, 38, 42, 0.78);
+  --bui-surface-solid: #26262a;
+  --bui-field: rgba(255, 255, 255, 0.04);
+  --bui-field-hover: rgba(255, 255, 255, 0.07);
+  --bui-hover: rgba(255, 255, 255, 0.05);
+  --bui-hover-2: rgba(255, 255, 255, 0.09);
+  --bui-inset: rgba(22, 22, 24, 0.65);
+  
+  /* Hairline Borders & Inner Refractions */
+  --bui-line: rgba(255, 255, 255, 0.08);
+  --bui-line-strong: rgba(255, 255, 255, 0.14);
+  --bui-line-subtle: rgba(255, 255, 255, 0.04);
+
+  /* Typography Scale Colors (Claude Warm Stones & Off-Whites) */
+  --bui-ink: #f5f5f4;
+  --bui-ink-2: #a8a29e;
+  --bui-ink-3: #78716c;
+  --bui-ink-4: #57534e;
+
+  /* Claude Brand Accent (Terracotta Warm Clay, Zero Blue) */
+  --bui-accent: #d97757;
+  --bui-accent-hover: #c46849;
+  --bui-accent-cyan: #d97757;
+  --bui-green: #10b981;
+  --bui-green-tint: rgba(16, 185, 129, 0.1);
+  --bui-amber: #f59e0b;
+  --bui-amber-tint: rgba(245, 158, 11, 0.1);
+  --bui-rose: #f43f5e;
+  --bui-rose-tint: rgba(244, 63, 94, 0.1);
+
+  /* Controls & Containers */
+  --bui-radius-control: 8px;
+  --bui-radius-card: 14px;
+  --bui-radius-pill: 9999px;
+
+  /* Diffusion Shadows & Inner Rim Highlights */
+  --bui-shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --bui-shadow-hover: 0 16px 40px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --bui-shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ================= Keyframe Animations ================= */
+
+@keyframes bui-pixel-on {
+  0%, 100% { opacity: 0.15; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes bui-shimmer-text {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes bui-fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bui-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bui-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bui-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ================= Primitives & Utility Classes ================= */
+
+/* Shimmering Text Effect (Muted, Non-Loud) */
+.bui-shimmer-text {
+  background-image: linear-gradient(
+    90deg, 
+    var(--bui-ink-3) 25%, 
+    var(--bui-ink) 50%, 
+    var(--bui-ink-3) 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  animation: bui-shimmer-text 2s linear infinite;
+  display: inline-block;
+}
+
+/* Smooth fade-up animation */
+.bui-fade-up {
+  animation: bui-fade-up 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Streaming Cursor Indicator */
+.bui-streaming-cursor {
+  display: inline-block;
+  width: 5px;
+  height: 14px;
+  background: var(--bui-accent-cyan);
+  border-radius: 1.5px;
+  margin-left: 4px;
+  vertical-align: -1px;
+  animation: bui-cursor-blink 0.8s infinite ease-in-out;
+}
+
+/* Minimalist Tactile Button */
+.bui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: var(--bui-radius-control);
+  padding: 6px 12px;
+  border: 1px solid var(--bui-line);
+  background: var(--bui-field);
+  color: var(--bui-ink-2);
+  cursor: pointer;
+  user-select: none;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--bui-shadow-btn);
+}
+
+.bui-btn:hover:not(:disabled) {
+  background: var(--bui-hover-2);
+  color: var(--bui-ink);
+  border-color: var(--bui-line-strong);
+  transform: translateY(-1px);
+}
+
+.bui-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.bui-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* High-Contrast Minimalist Primary Button (Claude Stone/Charcoal) */
+.bui-btn-primary {
+  background: #f5f5f4;
+  color: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.bui-btn-primary:hover:not(:disabled) {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 #ffffff;
+  transform: translateY(-1px);
+}
+
+.bui-btn-primary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.bui-btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.bui-btn-ghost:hover:not(:disabled) {
+  background: var(--bui-hover);
+  color: var(--bui-ink);
+  border-color: var(--bui-line);
+}
+
+/* Icon Buttons (Clean square with tactile press) */
+.bui-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--bui-ink-3);
+  cursor: pointer;
+  transition: all 140ms ease;
+}
+
+.bui-icon-btn:hover:not(:disabled) {
+  background: var(--bui-hover-2);
+  color: var(--bui-ink);
+  border-color: var(--bui-line);
+  transform: translateY(-1px);
+}
+
+.bui-icon-btn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.bui-icon-btn.active {
+  background: var(--bui-hover-2);
+  color: var(--bui-accent-cyan);
+  border-color: var(--bui-line);
+}
+
+/* Minimalist Filter / Mode Pills */
+.bui-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--bui-radius-pill);
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: var(--bui-field);
+  border: 1px solid var(--bui-line);
+  color: var(--bui-ink-2);
+  transition: all 140ms ease;
+  cursor: pointer;
+}
+
+.bui-pill:hover {
+  border-color: var(--bui-line-strong);
+  color: var(--bui-ink);
+  background: var(--bui-hover);
+}
+
+.bui-pill.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Status Badges */
+.bui-badge-success {
+  background: var(--bui-green-tint);
+  color: var(--bui-green);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.bui-badge-cyan {
+  background: rgba(217, 119, 87, 0.12);
+  color: var(--bui-accent-cyan);
+  border: 1px solid rgba(217, 119, 87, 0.28);
+}
+
+/* Minimalist Card Container with Inner Refraction */
+.bui-card {
+  background: var(--bui-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--bui-line);
+  border-radius: var(--bui-radius-card);
+  box-shadow: var(--bui-shadow-card);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bui-card:hover {
+  border-color: var(--bui-line-strong);
+}
+
+/* Minimalist User Chat Bubble (Claude-style elevated warm grey container) */
+.bui-msg-user {
+  background: #2d2d31;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px 16px 4px 16px;
+  color: #f5f5f4;
+  padding: 12px 18px;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Minimalist Assistant Chat Bubble */
+.bui-msg-assistant {
+  background: var(--bui-surface);
+  border: 1px solid var(--bui-line);
+  border-radius: 16px 16px 16px 4px;
+  color: var(--bui-ink);
+  padding: 16px 20px;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  box-shadow: var(--bui-shadow-card);
+}
+
+/* ================= Mobile & Responsive Adaptations ================= */
+
+/* Main Page Container */
+.bui-main-container {
+  flex: 1;
+  padding: 20px 28px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .bui-main-container {
+    padding: 12px 14px 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .bui-main-container {
+    padding: 8px 8px 14px;
+  }
+}
+
+/* Chat Layout Grid (Desktop side-by-side, Mobile toggled / stacked) */
+.bui-chat-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 16px;
+  height: calc(100vh - 125px);
+}
+
+@media (max-width: 1023px) {
+  .bui-chat-layout {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 80px);
+    gap: 10px;
+  }
+
+  .bui-chat-col.mobile-hidden {
+    display: none !important;
+  }
+
+  .bui-sidebar-col.mobile-hidden {
+    display: none !important;
+  }
+
+  .bui-sidebar-col {
+    width: 100% !important;
+    height: 100% !important;
+    flex: 1;
+  }
+
+  .bui-chat-col {
+    width: 100% !important;
+    height: 100% !important;
+    flex: 1;
+  }
+}
+
+/* Mobile Top Navbar */
+.bui-navbar {
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(24, 24, 27, 0.88);
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .bui-navbar {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .bui-navbar-subtitle {
+    display: none !important;
+  }
+
+  .bui-navbar-badge {
+    display: none !important;
+  }
+
+  .bui-nav-tab-label {
+    font-size: 0.75rem !important;
+  }
+
+  .bui-nav-doc-badge {
+    display: none !important;
+  }
+}
+
+/* Chat Scroll & Message Bubbles on Mobile */
+.bui-chat-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media (max-width: 768px) {
+  .bui-chat-scroll {
+    padding: 10px 10px 14px;
+    gap: 12px;
+  }
+
+  .bui-msg-user {
+    max-width: 90% !important;
+    padding: 10px 13px !important;
+    font-size: 0.875rem !important;
+  }
+
+  .bui-msg-assistant {
+    padding: 12px 14px !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Benchmark Grid on Mobile */
+.bui-benchmark-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 1024px) {
+  .bui-benchmark-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 540px) {
+  .bui-benchmark-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+/* Benchmark Pipeline Table / Rows */
+.bui-pipeline-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.bui-pipeline-row {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 1fr 1fr 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+}
+
+@media (max-width: 768px) {
+  .bui-pipeline-row {
+    min-width: 560px;
+  }
+}
+
+/* Multiplier Grid on Mobile */
+.bui-multiplier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .bui-multiplier-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+/* Mobile Sidebar Toggle Button */
+.bui-mobile-sidebar-toggle {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .bui-mobile-sidebar-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    padding: 4px 8px;
+  }
+}
+
+/* Mobile Attach File Button next to Mic (Mobile Screen Only) */
+.bui-mobile-attach-btn {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  .bui-mobile-attach-btn {
+    display: inline-flex !important;
+  }
+}
