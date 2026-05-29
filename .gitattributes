@@ -1,0 +1,6 @@
+# Tell GitHub Linguist to treat frontend files as vendored/documentation so Python remains the primary repository language
+frontend/** linguist-vendored
+*.js linguist-vendored
+*.jsx linguist-vendored
+*.css linguist-vendored
+*.html linguist-vendored
