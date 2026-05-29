@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     FINAL_TOP_K: int = 5
     
     # LLM API
-    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "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")
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
     GROQ_MODEL: str = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
